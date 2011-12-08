@@ -1,8 +1,13 @@
 #
-# Cookbook Name:: user-management
-# Recipe:: applyuserconfs
+# Cookbook Name:: usermanagement
+# Recipe:: background
 #
-# Copyright 2011 rcmorano
+# Copyright 2011 Junta de Andalucía
+#
+# Author::
+#  * Juanje Ojeda <jojeda@emergya.com>
+# 
+# Based on the Roberto C. Morano's applyuserconfs recipe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -32,7 +37,7 @@ node.home_users.each do |username|
     username username
     provider "usermanagement_gsettings"
     action :set
-  end     
+  end
 
 end
 

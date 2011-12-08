@@ -48,9 +48,10 @@ License and Author
 ==================
 
 Authors::
- * Roberto C. Morano (<rcmorano@emergya.com>)
- * David Amián (<damian@emergya.com>)
- * Juanje Ojeda (<jojeda@emergya.com>)
+
+* Roberto C. Morano (<rcmorano@emergya.com>)
+* David Amián (<damian@emergya.com>)
+* Juanje Ojeda (<jojeda@emergya.com>)
 
 Copyright 2011 Junta de Andalucía
 
