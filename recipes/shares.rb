@@ -15,27 +15,33 @@ def name_for_uri(uri)
   "#{host}:#{directory}"
 end
 
-# A general bookmark to see the remote resources from non-gvfs apps
-remote_resources = "file:///home/#{node.user}/.gvfs/ Unidades de red"
+users.each do |userdata|
 
-# We make sure the general bookmark is always there
-conf_plain_file "/home/#{node.user}/.gtk-bookmarks" do
-  pattern remote_resources
-  new_line remote_resources
-  owner node.user
-  group node.user
-  action :add
-end
+  username = userdata["id"]
 
-# Now the remote resources passed as attributes
-node.shares.each do |share|
-  bookmark = name_for_uri(share[:uri])
+  # A general bookmark to see the remote resources from non-gvfs apps
+  remote_resources = "file:///home/#{username}/.gvfs/ Unidades de red"
 
-  conf_plain_file "/home/#{node.user}/.gtk-bookmarks" do
-    pattern share[:uri]
-    new_line "#{share[:uri]} #{bookmark}"
-    owner node.user
-    group node.user
-    action share[:action].to_sym if %w{ add remove }.include? share[:action]
+  # We make sure the general bookmark is always there
+  usermanagement_plain_file "/home/#{username}/.gtk-bookmarks" do
+    pattern remote_resources
+    new_line remote_resources
+    owner username
+    group username
+    action :add
   end
+
+  # Now the remote resources passed as attributes
+  userdata["shares"].each do |share|
+    bookmark = name_for_uri(share[:uri])
+
+    usermanagement_plain_file "/home/#{username}/.gtk-bookmarks" do
+      pattern share[:uri]
+      new_line "#{share[:uri]} #{bookmark}"
+      owner username
+      group username
+      action share[:action].to_sym if %w{ add remove }.include? share[:action]
+    end
+  end
+
 end

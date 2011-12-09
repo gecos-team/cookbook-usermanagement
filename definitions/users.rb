@@ -1,6 +1,5 @@
 #
 # Cookbook Name:: usermanagement
-# Recipe:: background
 #
 # Copyright 2011 Junta de Andalucía
 #
@@ -21,18 +20,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'etc'
 
-users.each do |userdata|
+define :users do
 
-  usermanagement_desktopsetting "picture-uri" do
-    type "string"
-    name "picture-uri"
-    value userdata['background']['filename']
-    schema "org.gnome.desktop.background"
-    username userdata["id"]
-    provider "usermanagement_gsettings"
-    action :set
+  Dir["/home/*"].each do |homedir|
+    Etc.passwd do |entry|
+      next unless entry.dir =~ /^\/home/
+      next unless entry.dir == homedir
+      begin
+        user = data_bag_item('users', entry.name)
+      rescue
+        next
+      end
+      user
+    end
   end
 
 end
-
