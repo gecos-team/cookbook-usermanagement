@@ -25,9 +25,9 @@ attribute 'shares/user',
 
 attribute 'shares/shares',
   :display_name => "Share: remote resource",
-  :description  => "The remote resource's URI and the action to be perfomed: add or remove"
+  :description  => "The remote resource's URI and the action to be perfomed: add or remove",
   :type         => "array",
   :required     => "required",
-  :recipes      => \[ '::shares' \]
+  :recipes      => [ 'usermanagement::shares' ]
 
 
