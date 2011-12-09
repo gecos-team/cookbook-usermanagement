@@ -8,9 +8,11 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
 provides          "usermanagement::background"
 provides          "usermanagement::shares"
+provides          "usermanagement::hompage"
 
 recipe            "usermanagement::background", "Set user specific desktop background"
 recipe            "usermanagement::shares", "Set the remote resource to be mounted"
+recipe            "usermanagement::homepage", "Set the Firefox's homepage"
 
 %w{ ubuntu debian }.each do |os|
   supports os
@@ -36,4 +38,12 @@ attribute 'background/file_url',
   :type         => "string",
   :required     => "required",
   :recipes      => [ 'usermanagement::background' ]
+
+
+attribute 'homepage/homepage',
+  :display_name => "Homepage",
+  :description  => "The web page to be set as a Firefox's homepage",
+  :type         => "string",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::homepage' ]
 
