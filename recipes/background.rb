@@ -7,7 +7,8 @@
 # Author::
 #  * Juanje Ojeda <jojeda@emergya.com>
 # 
-# Based on the Roberto C. Morano's applyuserconfs recipe
+# Based on the Alfonso de Cala's background and
+# the Roberto C. Morano's applyuserconfs recipes
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,12 +25,30 @@
 
 users.each do |userdata|
 
+  username = userdata["id"]
+
+  local_dir_path = "/home/#{username}/.cache/gnome-control-center/backgrounds/"
+  # Let's be sure the parent directory exists
+  directory local_dir_path do
+    owner username
+    action :create
+  end
+
+  filename = userdata['background']['name']
+  local_file_path = ::File.join(local_dir_path, filename)
+
+  remote_file local_file_path do
+    source userdata["background"]["file_url"]
+    owner username
+    mode "0644"
+  end
+
   usermanagement_desktopsetting "picture-uri" do
     type "string"
     name "picture-uri"
-    value userdata['background']['filename']
+    value local_file_path
     schema "org.gnome.desktop.background"
-    username userdata["id"]
+    username username
     provider "usermanagement_gsettings"
     action :set
   end
