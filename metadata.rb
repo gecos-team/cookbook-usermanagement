@@ -23,4 +23,17 @@ attribute 'shares/shares',
   :required     => "required",
   :recipes      => [ 'usermanagement::shares' ]
 
+attribute 'background/name',
+  :display_name => "Background name",
+  :description  => "Name for the background file",
+  :type         => "string",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::background' ]
+
+attribute 'background/file_url',
+  :display_name => "Background url",
+  :description  => "URL were the background file is",
+  :type         => "string",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::background' ]
 
