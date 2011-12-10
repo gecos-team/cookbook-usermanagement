@@ -8,7 +8,7 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
 provides          "usermanagement::background"
 provides          "usermanagement::shares"
-provides          "usermanagement::hompage"
+provides          "usermanagement::homepage"
 
 recipe            "usermanagement::background", "Set user specific desktop background"
 recipe            "usermanagement::shares", "Set the remote resource to be mounted"
@@ -38,7 +38,6 @@ attribute 'background/file_url',
   :type         => "string",
   :required     => "required",
   :recipes      => [ 'usermanagement::background' ]
-
 
 attribute 'homepage/homepage',
   :display_name => "Homepage",
