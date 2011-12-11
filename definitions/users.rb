@@ -20,21 +20,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require 'etc'
 
 define :users do
 
-  Dir["/home/*"].each do |homedir|
-    Etc.passwd do |entry|
-      next unless entry.dir =~ /^\/home/
-      next unless entry.dir == homedir
-      begin
-        user = data_bag_item('users', entry.name)
-      rescue
-        next
-      end
-      user
+  node['users'].each do |user|
+    begin
+      userdata = data_bag_item('users', user['username'])
+    rescue
+      next
     end
+    userdata
   end
 
 end
