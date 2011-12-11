@@ -1,0 +1,34 @@
+[Mounting, checking, etc. of internal drives]
+Identity=unix-group:admin<%= @user_mount %>
+Action=org.freedesktop.udisks.filesystem-*;org.freedesktop.udisks.drive-ata-smart*
+ResultActive=yes
+
+[Change CPU Frequency scaling]
+Identity=unix-group:admin
+Action=org.gnome.cpufreqselector
+ResultActive=yes
+
+[Setting the clock]
+Identity=unix-group:admin
+Action=org.gnome.clockapplet.mechanism.*;org.gnome.settingsdaemon.datetimemechanism.*;org.kde.kcontrol.kcmclock.save
+ResultActive=yes
+
+[Adding or changing system-wide NetworkManager connections]
+Identity=unix-group:admin
+Action=org.freedesktop.NetworkManager.settings.modify.system
+ResultActive=yes
+
+[Update already installed software]
+Identity=unix-group:admin
+Action=org.debian.apt.upgrade-packages
+ResultActive=yes
+
+[usb-creator]
+Identity=unix-group:admin
+Action=com.ubuntu.usbcreator.mount;com.ubuntu.usbcreator.image
+ResultActive=yes
+
+#[Disable hibernate by default]
+#Identity=unix-user:*
+#Action=org.freedesktop.upower.hibernate
+#ResultActive=no
