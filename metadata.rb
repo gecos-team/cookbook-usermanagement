@@ -24,9 +24,18 @@ end
 
 attribute 'shares/shares',
   :display_name => "Share: remote resource",
-  :description  => "The remote resource's URI and the action to be perfomed: add or remove",
+  :description  => "The remote resources' URIs",
   :type         => "array",
   :required     => "required",
+  :recipes      => [ 'usermanagement::shares' ]
+
+attribute 'shares/action',
+  :display_name => "Action",
+  :description  => "The action to be perfomed: add or remove",
+  :type         => "string",
+  :choice       => [ "add", "remove" ],
+  :required     => "required",
+  :default      => "add",
   :recipes      => [ 'usermanagement::shares' ]
 
 attribute 'background/name',
