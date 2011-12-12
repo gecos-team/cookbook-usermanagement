@@ -11,12 +11,14 @@ provides          "usermanagement::shares"
 provides          "usermanagement::homepage"
 provides          "usermanagement::proxy_socks"
 provides          "usermanagement::polkit"
+provides          "usermanagement::bookmarks"
 
 recipe            "usermanagement::background", "Set user specific desktop background"
 recipe            "usermanagement::shares", "Set the remote resource to be mounted"
 recipe            "usermanagement::homepage", "Set the Firefox's homepage"
 recipe            "usermanagement::proxy_socks", "Enable or unable the Proxy Socks"
 recipe            "usermanagement::polkit", "Disable mount device all user with exception if exists"
+recipe            "usermanagement::bookmarks", "Set the Firefox's bookmarks"
 
 %w{ ubuntu debian }.each do |os|
   supports os
@@ -90,4 +92,18 @@ attribute 'polkit/mount',
   :required     => "required",
   :default      => "false",
   :recipes      => [ 'usermanagement::polkit' ]
+
+attribute 'bookmarks/title',
+  :display_name => "Title",
+  :description  => "The bookmark's title",
+  :type         => "string",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::bookmarks' ]
+
+attribute 'bookmarks/url',
+  :display_name => "URL",
+  :description  => "The bookmark's URL",
+  :type         => "string",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::bookmarks' ]
 
