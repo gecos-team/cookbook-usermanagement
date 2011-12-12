@@ -40,7 +40,7 @@ users.each do |userdata|
     usermanagement_desktopsetting key do
       type "string"
       value userdata["proxy_socks"][key]
-      schema "org.gnome.system.proxy"
+      schema "org.gnome.system.proxy.socks"
       username username
       provider "usermanagement_gsettings"
       action :set
