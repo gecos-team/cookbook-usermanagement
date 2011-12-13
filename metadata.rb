@@ -13,12 +13,12 @@ provides          "usermanagement::proxy_socks"
 provides          "usermanagement::polkit"
 provides          "usermanagement::bookmarks"
 
-recipe            "usermanagement::background", "Set user specific desktop background"
-recipe            "usermanagement::shares", "Set the remote resource to be mounted"
-recipe            "usermanagement::homepage", "Set the Firefox's homepage"
-recipe            "usermanagement::proxy_socks", "Enable or unable the Proxy Socks"
-recipe            "usermanagement::polkit", "Disable mount device all user with exception if exists"
-recipe            "usermanagement::bookmarks", "Set the Firefox's bookmarks"
+recipe            "usermanagement::background", "Desktop background"
+recipe            "usermanagement::shares", "Add/remove shares"
+recipe            "usermanagement::homepage", "Firefox's homepage"
+recipe            "usermanagement::proxy_socks", "Proxy Socks"
+recipe            "usermanagement::polkit", "Disable mount usb devices"
+recipe            "usermanagement::bookmarks", "Firefox's bookmarks"
 
 %w{ ubuntu debian }.each do |os|
   supports os
