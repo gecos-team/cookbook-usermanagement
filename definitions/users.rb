@@ -27,7 +27,11 @@ define :users do
     begin
       userdata = data_bag_item('users', user['username'])
     rescue
-      next
+      begin
+        userdata = data_bag_item('users', "user_skel")
+      rescue
+        next
+      end
     end
     userdata
   end.compact
