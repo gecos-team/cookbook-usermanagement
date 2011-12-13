@@ -23,13 +23,13 @@
 
 define :users do
 
-  node['users'].each do |user|
+  node['users'].collect do |user|
     begin
       userdata = data_bag_item('users', user['username'])
     rescue
       next
     end
     userdata
-  end
+  end.compact
 
 end
