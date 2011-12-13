@@ -1,4 +1,8 @@
-require ('sqlite3')
+begin
+ require 'sqlite3'
+rescue LoadError => e
+ Chef::Log.warn("Dependency 'gem' not loaded: #{e}")
+end
 
 action :add do
   if FileTest.exist? new_resource.sqlitedb

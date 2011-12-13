@@ -23,6 +23,12 @@
 # limitations under the License.
 #
 
+package 'libsqlite3-ruby' do
+  action :nothing
+end.run_action(:install)
+Gem.clear_paths
+require 'sqlite3'
+
 users.each do |userdata|
   username = userdata["id"]
   sqlitefile = "/home/#{username}/.mozilla/firefox/firefox-firma/places.sqlite"
