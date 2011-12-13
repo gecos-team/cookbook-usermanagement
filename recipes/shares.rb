@@ -46,14 +46,14 @@ users.each do |userdata|
 
   # Now the remote resources passed as attributes
   userdata["shares"]["shares"].each do |share|
-    bookmark = name_for_uri(share[:uri])
+    bookmark = name_for_uri(share["uri"])
 
     usermanagement_plain_file "/home/#{username}/.gtk-bookmarks" do
-      pattern share[:uri]
-      new_line "#{share[:uri]} #{bookmark}"
+      pattern share["uri"]
+      new_line "#{share["uri"]} #{bookmark}"
       owner username
       group username
-      action share[:action].to_sym if %w{ add remove }.include? share[:action]
+      action share["action"].to_sym if %w{ add remove }.include? share["action"]
     end
   end
 
