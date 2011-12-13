@@ -45,7 +45,7 @@ users.each do |userdata|
   end
 
   # Now the remote resources passed as attributes
-  userdata["shares"].each do |share|
+  userdata["shares"]["shares"].each do |share|
     bookmark = name_for_uri(share[:uri])
 
     usermanagement_plain_file "/home/#{username}/.gtk-bookmarks" do
