@@ -23,7 +23,7 @@
 def name_for_uri(uri)
   # NOTE: We can't use the library URI because it hasn't implemented
   # the smb protocol
-  host = uri.match('(smb|nfs|ftp):\/\/([a-zA-Z]+\w*)\/.*')[2]
+  host = uri.match('(smb|nfs|ftp):\/\/([\S]*)\/.*')[2]
   directory = ::File.basename uri
   "#{host}:#{directory}"
 end
