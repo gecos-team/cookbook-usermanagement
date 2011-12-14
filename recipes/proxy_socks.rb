@@ -22,6 +22,10 @@
 # limitations under the License.
 #
 
+package 'xvfb' do
+  action :nothing
+end.run_action(:install)
+
 users.each do |userdata|
 
   username = userdata["id"]
