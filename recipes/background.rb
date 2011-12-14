@@ -31,6 +31,7 @@ users.each do |userdata|
   # Let's be sure the parent directory exists
   directory local_dir_path do
     owner username
+    recursive true
     action :create
   end
 
