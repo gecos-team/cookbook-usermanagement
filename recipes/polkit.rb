@@ -31,23 +31,25 @@ cookbook_file udisk_policy do
   mode "0644"
 end
 
+granted_users = Array.new
+
 users.each do |userdata|
 
   # Can this user mount devices?
   next unless userdata["polkit"]["mount"]
-  username = userdata["id"]
+  granted_users << userdata["id"]
+end
 
-  desktop_pkla = "/var/lib/polkit-1/localauthority/10-vendor.d/com.ubuntu.desktop.pkla"
-  template desktop_pkla do
-    users = node[:usermount].inject("") do |users,user|
-      users << ";unix-user:#{user}"
-    end
+desktop_pkla = "/var/lib/polkit-1/localauthority/10-vendor.d/com.ubuntu.desktop.pkla"
+template desktop_pkla do
+users = granted_users.uniq.inject("") do |users,user|
+users << ";unix-user:#{user}"
+end
 
-    source "com.ubuntu.desktop.pkla.erb"
-    owner "root"
-    group "root"
-    mode "0644"
-    variables :user_mount => users
-  end
+source "com.ubuntu.desktop.pkla.erb"
+owner "root"
+group "root"
+mode "0644"
+variables :user_mount => users
 end
 
