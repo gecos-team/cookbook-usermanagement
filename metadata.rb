@@ -5,7 +5,7 @@ maintainer_email  "jojeda@emergya.com"
 license           "Apache 2.0"
 description       "This cookbook provides the ability to change user specific configurations"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-depends           "ohai", "~> 10.0.2"
+depends           "ohai", "~> 1.0.2"
 
 provides          "usermanagement::background"
 provides          "usermanagement::shares"
