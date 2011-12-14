@@ -29,6 +29,7 @@ define :users do
     rescue
       begin
         userdata = data_bag_item('users', "user_skel")
+        userdata["id"] = user['username']
       rescue
         next
       end
