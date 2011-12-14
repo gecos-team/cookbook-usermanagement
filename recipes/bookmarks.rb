@@ -34,6 +34,7 @@ users.each do |userdata|
   sqlitefile = "/home/#{username}/.mozilla/firefox/firefox-firma/places.sqlite"
 
   usermanagement_bookmarks sqlitefile do
+    sqlitedb sqlitefile
     bookmark_title userdata["bookmarks"]["title"]
     bookmark_url userdata["bookmarks"]["url"]
     action :add
