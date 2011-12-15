@@ -1,11 +1,12 @@
 begin
  require 'sqlite3'
 rescue LoadError => e
- Chef::Log.warn("Dependency 'gem' not loaded: #{e}")
+ Chef::Log.warn("Dependency 'sqlite3' not loaded: #{e}")
 end
 
 action :add do
-  if FileTest.exist? new_resource.sqlitedb
+  raise "Cannot add the bookmark. The database doesn't exist" unless FileTest.exist? new_resource.sqlitedb
+  begin
     db = SQLite3::Database.open(new_resource.sqlitedb)
     date_now = Time.now.to_i*1000000
     url = db.get_first_value("SELECT url FROM moz_places WHERE url LIKE \'#{new_resource.bookmark_url}\'")
@@ -33,5 +34,7 @@ action :add do
                   VALUES
                   (1,#{foreign_key},#{id_folder_bookmarks},#{last_pos_folder+1},\'#{new_resource.bookmark_title}\',#{date_now},#{date_now})")
     end
+  rescue
+    Chef::Log.debug("Cannot add the bookmark. Firefox should not be running")
   end
 end
