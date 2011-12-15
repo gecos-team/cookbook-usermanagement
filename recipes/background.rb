@@ -26,8 +26,9 @@
 users.each do |userdata|
 
   username = userdata["id"]
+  homedir = userdata["home"]
 
-  local_dir_path = "/home/#{username}/.cache/gnome-control-center/backgrounds/"
+  local_dir_path = "#{homedir}/.cache/gnome-control-center/backgrounds/"
   # Let's be sure the parent directory exists
   directory local_dir_path do
     owner username

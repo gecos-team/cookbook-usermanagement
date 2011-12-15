@@ -31,7 +31,8 @@ require 'sqlite3'
 
 users.each do |userdata|
   username = userdata["id"]
-  sqlitefile = "/home/#{username}/.mozilla/firefox/firefox-firma/places.sqlite"
+  homedir = userdata["home"]
+  sqlitefile = "#{homedir}/.mozilla/firefox/firefox-firma/places.sqlite"
 
   usermanagement_bookmarks sqlitefile do
     sqlitedb sqlitefile

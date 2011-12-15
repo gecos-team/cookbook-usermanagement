@@ -31,12 +31,13 @@ end
 users.each do |userdata|
 
   username = userdata["id"]
+  homedir = userdata["home"]
 
   # A general bookmark to see the remote resources from non-gvfs apps
-  remote_resources = "file:///home/#{username}/.gvfs/ Unidades de red"
+  remote_resources = "file://#{homedir}/.gvfs/ Unidades de red"
 
   # We make sure the general bookmark is always there
-  usermanagement_plain_file "/home/#{username}/.gtk-bookmarks" do
+  usermanagement_plain_file "#{homedir}/.gtk-bookmarks" do
     pattern remote_resources
     new_line remote_resources
     owner username
@@ -48,7 +49,7 @@ users.each do |userdata|
   userdata["shares"]["shares"].each do |share|
     bookmark = name_for_uri(share["uri"])
 
-    usermanagement_plain_file "/home/#{username}/.gtk-bookmarks" do
+    usermanagement_plain_file "#{homedir}/.gtk-bookmarks" do
       pattern share["uri"]
       new_line "#{share["uri"]} #{bookmark}"
       owner username

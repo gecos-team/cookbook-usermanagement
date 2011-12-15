@@ -1,5 +1,5 @@
 name              "usermanagement"
-version           "0.1.2"
+version           "0.1.3"
 maintainer        "Juanje Ojeda"
 maintainer_email  "jojeda@emergya.com"
 license           "Apache 2.0"

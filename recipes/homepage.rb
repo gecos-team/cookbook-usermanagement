@@ -25,9 +25,10 @@
 
 users.each do |userdata|
   username = userdata["id"]
+  homedir = userdata["home"]
   homepage = userdata["homepage"]["homepage"]
 
-  user_prefs = "/home/#{username}/.mozilla/firefox/firefox-firma/prefs.js"
+  user_prefs = "#{homedir}/.mozilla/firefox/firefox-firma/prefs.js"
 
   usermanagement_plain_file user_prefs do
     pattern    /user_pref\(\s*\"browser.startup.homepage\".*/
