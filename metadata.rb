@@ -26,13 +26,20 @@ recipe            "usermanagement::bookmarks", "Firefox's bookmarks"
 end
 
 attribute 'shares/shares',
-  :display_name => "Share: remote resource",
-  :description  => "The remote resources' URIs",
+  :display_name => "Shares: remote resources",
+  :description  => "List of remote resources",
   :type         => "array",
   :required     => "required",
   :recipes      => [ 'usermanagement::shares' ]
 
-attribute 'shares/action',
+attribute 'shares/shares/uri',
+  :display_name => "Share: remote resource",
+  :description  => "The remote resources' URIs",
+  :type         => "string",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::shares' ]
+
+attribute 'shares/shares/action',
   :display_name => "Action",
   :description  => "The action to be perfomed: add or remove",
   :type         => "string",
