@@ -93,7 +93,7 @@ attribute 'proxy_socks/port',
   :recipes      => [ 'usermanagement::proxy_socks' ]
 
 attribute 'polkit/mount',
-  :display_name => "Munt",
+  :display_name => "Mount",
   :description  => "Can the user mount devices?",
   :type         => "string",
   :choice       => [ "true", "false" ],
