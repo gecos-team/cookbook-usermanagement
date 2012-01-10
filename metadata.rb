@@ -34,9 +34,11 @@ attribute 'shares/shares',
 
 attribute 'shares/shares/uri',
   :display_name => "Share: remote resource",
-  :description  => "The remote resources' URIs",
+  :description  => "The remote resources' URIs in UNIX notation like smb://localhost/resource",
   :type         => "string",
   :required     => "required",
+  :validation   => "custom",
+  :custom       => "smb|nfs|ftp):\/\/([\S]*)\/.*"
   :recipes      => [ 'usermanagement::shares' ]
 
 attribute 'shares/shares/action',
@@ -60,6 +62,7 @@ attribute 'background/file_url',
   :description  => "URL were the background file is",
   :type         => "string",
   :required     => "required",
+  :validation   => "url",
   :recipes      => [ 'usermanagement::background' ]
 
 attribute 'homepage/homepage',
@@ -67,6 +70,7 @@ attribute 'homepage/homepage',
   :description  => "The web page to be set as a Firefox's homepage",
   :type         => "string",
   :required     => "required",
+  :validation   => "url",
   :recipes      => [ 'usermanagement::homepage' ]
 
 attribute 'proxy_socks/mode',
@@ -83,6 +87,7 @@ attribute 'proxy_socks/host',
   :description  => "The proxy socks server IP",
   :type         => "string",
   :required     => "required",
+  :validation   => "ip",
   :recipes      => [ 'usermanagement::proxy_socks' ]
 
 attribute 'proxy_socks/port',
@@ -90,6 +95,7 @@ attribute 'proxy_socks/port',
   :description  => "The proxy socks server port",
   :type         => "string",
   :required     => "required",
+  :validation   => "integer",
   :recipes      => [ 'usermanagement::proxy_socks' ]
 
 attribute 'polkit/mount',
@@ -113,5 +119,6 @@ attribute 'bookmarks/url',
   :description  => "The bookmark's URL",
   :type         => "string",
   :required     => "required",
+  :validation   => "url",
   :recipes      => [ 'usermanagement::bookmarks' ]
 
