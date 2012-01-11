@@ -34,6 +34,7 @@ define :users do
         next
       end
     end
+    userdata['home'] = user['home']
     userdata
   end.compact
 
