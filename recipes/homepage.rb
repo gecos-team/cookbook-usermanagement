@@ -31,8 +31,9 @@ users.each do |userdata|
   user_prefs = "#{homedir}/.mozilla/firefox/firefox-firma/prefs.js"
 
   usermanagement_plain_file user_prefs do
-    pattern    /user_pref\(\s*\"browser.startup.homepage\".*/
-    new_line   "user_pref(\"browser.startup.homepage\", \"#{homepage}\");"
+    before    /user_pref\(\s*\"browser.startup.homepage\".*/
+    after     "user_pref(\"browser.startup.homepage\", \"#{homepage}\");"
+    action :replace
   end
 
 end
