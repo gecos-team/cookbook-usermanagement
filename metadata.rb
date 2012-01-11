@@ -38,7 +38,7 @@ attribute 'shares/shares/uri',
   :type         => "string",
   :required     => "required",
   :validation   => "custom",
-  :custom       => "smb|nfs|ftp):\/\/([\S]*)\/.*"
+  :custom       => "smb|nfs|ftp):\/\/([\S]*)\/.*",
   :recipes      => [ 'usermanagement::shares' ]
 
 attribute 'shares/shares/action',
@@ -59,7 +59,7 @@ attribute 'background/name',
 
 attribute 'background/file_url',
   :display_name => "Background url",
-  :description  => "URL were the background file is",
+  :description  => "URL where the background file is",
   :type         => "string",
   :required     => "required",
   :validation   => "url",
