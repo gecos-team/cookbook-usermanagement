@@ -1,5 +1,5 @@
 name              "usermanagement"
-version           "0.1.3"
+version           "0.1.4"
 maintainer        "Juanje Ojeda"
 maintainer_email  "jojeda@emergya.com"
 license           "Apache 2.0"
@@ -10,14 +10,14 @@ depends           "ohai-gecos", "~> 1.9.0"
 provides          "usermanagement::background"
 provides          "usermanagement::shares"
 provides          "usermanagement::homepage"
-provides          "usermanagement::proxy_socks"
+provides          "usermanagement::proxy"
 provides          "usermanagement::polkit"
 provides          "usermanagement::bookmarks"
 
 recipe            "usermanagement::background", "Desktop background"
 recipe            "usermanagement::shares", "Add/remove shares"
 recipe            "usermanagement::homepage", "Firefox's homepage"
-recipe            "usermanagement::proxy_socks", "Proxy Socks"
+recipe            "usermanagement::proxy", "Proxy Socks"
 recipe            "usermanagement::polkit", "Disable mount usb devices"
 recipe            "usermanagement::bookmarks", "Firefox's bookmarks"
 
@@ -73,30 +73,30 @@ attribute 'homepage/homepage',
   :validation   => "url",
   :recipes      => [ 'usermanagement::homepage' ]
 
-attribute 'proxy_socks/mode',
+attribute 'proxy/mode',
   :display_name => "Mode",
   :description  => "Enable (manual mode) or disable the proxy socks",
   :type         => "string",
-  :choice       => [ "manual", "none" ],
+  :choice       => [ "http", "socks", "none" ],
   :required     => "required",
   :default      => "none",
-  :recipes      => [ 'usermanagement::proxy_socks' ]
+  :recipes      => [ 'usermanagement::proxy' ]
 
-attribute 'proxy_socks/host',
+attribute 'proxy/host',
   :display_name => "Host",
   :description  => "The proxy socks server IP",
   :type         => "string",
   :required     => "required",
   :validation   => "ip",
-  :recipes      => [ 'usermanagement::proxy_socks' ]
+  :recipes      => [ 'usermanagement::proxy' ]
 
-attribute 'proxy_socks/port',
+attribute 'proxy/port',
   :display_name => "Port",
   :description  => "The proxy socks server port",
   :type         => "string",
   :required     => "required",
   :validation   => "integer",
-  :recipes      => [ 'usermanagement::proxy_socks' ]
+  :recipes      => [ 'usermanagement::proxy' ]
 
 attribute 'polkit/mount',
   :display_name => "Mount",
