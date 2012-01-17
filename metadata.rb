@@ -18,7 +18,7 @@ recipe            "usermanagement::background", "Desktop background"
 recipe            "usermanagement::shares", "Add/remove shares"
 recipe            "usermanagement::homepage", "Firefox's homepage"
 recipe            "usermanagement::proxy_socks", "Proxy Socks"
-recipe            "usermanagement::polkit", "Disable mount usb devices"
+recipe            "usermanagement::polkit", "Disable external DVD and USB devices"
 recipe            "usermanagement::bookmarks", "Firefox's bookmarks"
 
 %w{ ubuntu debian }.each do |os|
