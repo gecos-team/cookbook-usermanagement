@@ -136,6 +136,52 @@ users.each do |userdata|
       provider "usermanagement_gsettings"
       action :set
     end
+   
+    %w{ host port }.each do |key|
+      if key=="host"
+        desktop_value="\\\'\\\'"
+        desktop_type="string"
+      else
+        desktop_value="0"
+        desktop_type="integer"
+      end
+      usermanagement_desktopsetting key do
+        type desktop_type
+        value desktop_value
+        schema "org.gnome.system.proxy.socks"
+        username username
+        provider "usermanagement_gsettings"
+        action :set
+      end
+    end
+
+    %w{ host port }.each do |key|
+      if key=="host"
+        desktop_value="\\\'\\\'"
+        desktop_type="string"
+      else
+        desktop_value="0"
+        desktop_type="integer"
+      end
+      usermanagement_desktopsetting key do
+        type desktop_type
+        value desktop_value
+        schema "org.gnome.system.proxy.http"
+        username username
+        provider "usermanagement_gsettings"
+        action :set
+      end
+    end
+
+    usermanagement_desktopsetting 'enabled' do
+      type "string"
+      value "false"
+      schema "org.gnome.system.proxy.http"
+      username username
+      provider "usermanagement_gsettings"
+      action :set
+    end
+
   end
 
 
