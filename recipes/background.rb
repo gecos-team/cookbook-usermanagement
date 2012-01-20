@@ -25,7 +25,7 @@
 
 users.each do |userdata|
 
-  username = userdata["id"]
+  username = userdata["name"]
   homedir = userdata["home"]
 
   local_dir_path = "#{homedir}/.cache/gnome-control-center/backgrounds/"

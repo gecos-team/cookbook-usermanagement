@@ -29,8 +29,7 @@ def name_for_uri(uri)
 end
 
 users.each do |userdata|
-
-  username = userdata["id"]
+  username = userdata["name"]
   homedir = userdata["home"]
 
   # A general bookmark to see the remote resources from non-gvfs apps
@@ -45,8 +44,10 @@ users.each do |userdata|
     action :add
   end
 
+  puts userdata.inspect
   # Now the remote resources passed as attributes
-  userdata["shares"]["shares"].each do |share|
+  shares=userdata["shares"]["shares"].map{|x| x[1]}.flatten
+  shares.each do |share|
     bookmark = name_for_uri(share["uri"])
 
     usermanagement_plain_file "#{homedir}/.gtk-bookmarks" do

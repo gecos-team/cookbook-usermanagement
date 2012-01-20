@@ -28,7 +28,7 @@ end.run_action(:install)
 
 users.each do |userdata|
 
-  username = userdata["id"]
+  username = userdata["name"]
   mode = userdata["proxy"]["mode"]
   if mode == "socks"
     usermanagement_desktopsetting "mode" do

@@ -30,7 +30,7 @@ Gem.clear_paths
 require 'sqlite3'
 
 users.each do |userdata|
-  username = userdata["id"]
+  username = userdata["name"]
   homedir = userdata["home"]
   sqlitefile = "#{homedir}/.mozilla/firefox/firefox-firma/places.sqlite"
 

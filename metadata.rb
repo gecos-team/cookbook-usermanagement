@@ -39,6 +39,7 @@ attribute 'shares/shares/uri',
   :required     => "required",
   :validation   => "custom",
   :custom       => "smb|nfs|ftp):\/\/([\S]*)\/.*",
+  :order        => "0",
   :recipes      => [ 'usermanagement::shares' ]
 
 attribute 'shares/shares/action',
@@ -48,6 +49,7 @@ attribute 'shares/shares/action',
   :choice       => [ "add", "remove" ],
   :required     => "required",
   :default      => "add",
+  :order        => "1",
   :recipes      => [ 'usermanagement::shares' ]
 
 attribute 'background/name',
@@ -55,6 +57,7 @@ attribute 'background/name',
   :description  => "Name for the background file",
   :type         => "string",
   :required     => "required",
+  :order        => "0",
   :recipes      => [ 'usermanagement::background' ]
 
 attribute 'background/file_url',
@@ -63,6 +66,7 @@ attribute 'background/file_url',
   :type         => "string",
   :required     => "required",
   :validation   => "url",
+  :order        => "1",
   :recipes      => [ 'usermanagement::background' ]
 
 attribute 'homepage/homepage',
@@ -71,6 +75,7 @@ attribute 'homepage/homepage',
   :type         => "string",
   :required     => "required",
   :validation   => "url",
+  :order        => "2",
   :recipes      => [ 'usermanagement::homepage' ]
 
 attribute 'proxy/mode',
@@ -80,6 +85,7 @@ attribute 'proxy/mode',
   :choice       => [ "http", "socks", "none" ],
   :required     => "required",
   :default      => "none",
+  :order        => "0",
   :recipes      => [ 'usermanagement::proxy' ]
 
 attribute 'proxy/host',
@@ -88,6 +94,7 @@ attribute 'proxy/host',
   :type         => "string",
   :required     => "required",
   :validation   => "ip",
+  :order        => "1",
   :recipes      => [ 'usermanagement::proxy' ]
 
 attribute 'proxy/port',
@@ -96,6 +103,7 @@ attribute 'proxy/port',
   :type         => "string",
   :required     => "required",
   :validation   => "integer",
+  :order        => "2",
   :recipes      => [ 'usermanagement::proxy' ]
 
 attribute 'polkit/mount',
@@ -105,6 +113,7 @@ attribute 'polkit/mount',
   :choice       => [ "true", "false" ],
   :required     => "required",
   :default      => "false",
+  :order        => "0",
   :recipes      => [ 'usermanagement::polkit' ]
 
 attribute 'bookmarks/title',
@@ -112,6 +121,7 @@ attribute 'bookmarks/title',
   :description  => "The bookmark's title",
   :type         => "string",
   :required     => "required",
+  :order        => "0",
   :recipes      => [ 'usermanagement::bookmarks' ]
 
 attribute 'bookmarks/url',
@@ -120,5 +130,6 @@ attribute 'bookmarks/url',
   :type         => "string",
   :required     => "required",
   :validation   => "url",
+  :order        => "1",
   :recipes      => [ 'usermanagement::bookmarks' ]
 

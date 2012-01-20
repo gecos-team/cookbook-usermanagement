@@ -37,7 +37,7 @@ users.each do |userdata|
 
   # Can this user mount devices?
   next unless userdata["polkit"]["mount"]
-  granted_users << userdata["id"]
+  granted_users << userdata["name"]
 end
 
 desktop_pkla = "/var/lib/polkit-1/localauthority/10-vendor.d/com.ubuntu.desktop.pkla"
