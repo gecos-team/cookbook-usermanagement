@@ -44,7 +44,6 @@ users.each do |userdata|
     action :add
   end
 
-  puts userdata.inspect
   # Now the remote resources passed as attributes
   shares=userdata["shares"]["shares"].map{|x| x[1]}.flatten
   shares.each do |share|
