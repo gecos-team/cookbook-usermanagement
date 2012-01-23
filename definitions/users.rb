@@ -34,6 +34,7 @@ define :users do
       begin
         userdata = data_bag_item('users', "user_skel")
         userdata["id"] = 'user_skel'
+        userdata["name"] = user['username']
       rescue
         next
       end
