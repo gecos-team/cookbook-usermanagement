@@ -24,7 +24,7 @@
 #
 
 users.each do |userdata|
-  username = userdata["id"]
+  username = userdata["name"]
   homedir = userdata["home"]
   homepage = userdata["homepage"]["homepage"]
 

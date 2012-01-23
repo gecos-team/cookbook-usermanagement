@@ -21,15 +21,19 @@
 # limitations under the License.
 #
 
+
 define :users do
 
   node['users'].collect do |user|
     begin
-      userdata = data_bag_item('users', user['username'])
+      username = user['username']
+      md5name = Digest::MD5.hexdigest(username)
+      userdata = data_bag_item('users', md5name)
+      userdata["name"] = username
     rescue
       begin
         userdata = data_bag_item('users', "user_skel")
-        userdata["id"] = user['username']
+        userdata["id"] = 'user_skel'
       rescue
         next
       end
