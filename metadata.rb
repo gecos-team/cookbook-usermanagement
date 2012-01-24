@@ -20,10 +20,27 @@ recipe            "usermanagement::homepage", "Firefox's homepage"
 recipe            "usermanagement::proxy", "Proxy Socks"
 recipe            "usermanagement::polkit", "Disable mount usb devices"
 recipe            "usermanagement::bookmarks", "Firefox's bookmarks"
+recipe            "usermanagement::autostart", "Autostart applications"
 
 %w{ ubuntu debian }.each do |os|
   supports os
 end
+
+attribute 'autostart/autostart',
+  :display_name => "Autostart: Name applications",
+  :description  => "List of applications name for autostart",
+  :type         => "array",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::autostart' ]
+
+attribute 'autostart/autostart/name',
+  :display_name => "Desktop file name of application",
+  :description  => "Set the desktop file name (In e.g gedit.desktop)",
+  :type         => "string",
+  :required     => "required",
+  :order        => "0",
+  :recipes      => [ 'usermanagement::autostart' ]
+
 
 attribute 'shares/shares',
   :display_name => "Shares: remote resources",
@@ -37,8 +54,7 @@ attribute 'shares/shares/uri',
   :description  => "Remote resources' URIs in UNIX notation (smb://servername/resource)",
   :type         => "string",
   :required     => "required",
-  :validation   => "custom",
-  :custom       => "smb|nfs|ftp):\/\/([\S]*)\/.*",
+  :validation   => "complete_uri",
   :order        => "0",
   :recipes      => [ 'usermanagement::shares' ]
 
