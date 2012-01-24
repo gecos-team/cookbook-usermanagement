@@ -54,8 +54,7 @@ attribute 'shares/shares/uri',
   :description  => "Remote resources' URIs in UNIX notation (smb://servername/resource)",
   :type         => "string",
   :required     => "required",
-  :validation   => "custom",
-  :custom       => "smb|nfs|ftp):\/\/([\S]*)\/.*",
+  :validation   => "complete_uri",
   :order        => "0",
   :recipes      => [ 'usermanagement::shares' ]
 
