@@ -34,11 +34,14 @@ users.each do |userdata|
   homedir = userdata["home"]
   sqlitefile = "#{homedir}/.mozilla/firefox/firefox-firma/places.sqlite"
 
-  usermanagement_bookmarks sqlitefile do
-    sqlitedb sqlitefile
-    bookmark_title userdata["bookmarks"]["title"]
-    bookmark_url userdata["bookmarks"]["url"]
-    action :add
+  bookmarks = userdata["bookmarks"]["bookmarks"].map{|x| x[1]}.flatten
+  bookmarks.each do |bookmark|
+    usermanagement_bookmarks sqlitefile do
+      sqlitedb sqlitefile
+      bookmark_title bookmark["title"]
+      bookmark_url bookmark["url"]
+      action :add
+    end
   end
 end
 
