@@ -31,7 +31,7 @@ def manage_samba_members(samba_members)
   users_to_remove = []
 
   users.each do |userdata|
-    username = userdata['id']
+    username = userdata['username']
     if userdata['allowsharing']
       users_to_add << username
     else
