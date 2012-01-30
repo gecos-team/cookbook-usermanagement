@@ -21,6 +21,7 @@ recipe            "usermanagement::proxy", "Proxy Socks"
 recipe            "usermanagement::polkit", "Disable mount usb devices"
 recipe            "usermanagement::bookmarks", "Firefox's bookmarks"
 recipe            "usermanagement::autostart", "Autostart applications"
+recipe            "usermanagement::allowsharing", "Resources sharing permissions"
 
 %w{ ubuntu debian }.each do |os|
   supports os
@@ -145,4 +146,12 @@ attribute 'bookmarks/bookmarks/url',
   :validation   => "url",
   :order        => "1",
   :recipes      => [ 'usermanagement::bookmarks' ]
+
+attribute 'allowsharing/allowsharing',
+  :display_name => "Allow resource sharing",
+  :description  => "User can share local resources",
+  :type         => "string",
+  :choice       => [ "true", "false" ],
+  :required     => "required",
+  :recipes      => [ 'usermanagement::allowsharing' ]
 
