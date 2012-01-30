@@ -36,20 +36,19 @@ granted_users = Array.new
 users.each do |userdata|
 
   # Can this user mount devices?
-  next unless userdata["polkit"]["mount"]
-  granted_users << userdata["name"]
+  next if userdata["polkit"]["mount"] == 'false'
+  granted_users << userdata["username"]
+end
+users = granted_users.uniq.inject("") do |users,user|
+  users << ";unix-user:#{user}"
 end
 
 desktop_pkla = "/var/lib/polkit-1/localauthority/10-vendor.d/com.ubuntu.desktop.pkla"
 template desktop_pkla do
-users = granted_users.uniq.inject("") do |users,user|
-users << ";unix-user:#{user}"
-end
-
-source "com.ubuntu.desktop.pkla.erb"
-owner "root"
-group "root"
-mode "0644"
-variables :user_mount => users
+  source "com.ubuntu.desktop.pkla.erb"
+  owner "root"
+  group "root"
+  mode "0644"
+  variables :user_mount => users
 end
 
