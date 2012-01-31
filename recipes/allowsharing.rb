@@ -28,11 +28,11 @@ GRP_SAMBA = 'sambashare'
 def manage_samba_members(samba_members)
 
   users_to_add = []
-  users_to_remove = []
+  users_to_remove = ['nobody']
 
   users.each do |userdata|
     username = userdata['username']
-    if userdata['allowsharing']
+    if userdata['allowsharing']['allowsharing'] == 'true'
       users_to_add << username
     else
       users_to_remove << username
@@ -42,6 +42,14 @@ def manage_samba_members(samba_members)
   samba_members = samba_members + users_to_add
   samba_members = samba_members - users_to_remove
   samba_members.uniq!
+
+  # NOTE: Chef resource "group" takes no action when
+  # the group members is an empty array, so we need
+  # to add a "dummy" user if we want to deny resource
+  # sharing to the rest of the users.
+  if samba_members.empty?
+    samba_members << 'nobody'
+  end
 
   group GRP_SAMBA do
     action :manage
