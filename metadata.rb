@@ -152,6 +152,7 @@ attribute 'allowsharing/allowsharing',
   :description  => "User can share local resources",
   :type         => "string",
   :choice       => [ "true", "false" ],
+  :default      => "false",
   :required     => "required",
   :recipes      => [ 'usermanagement::allowsharing' ]
 
