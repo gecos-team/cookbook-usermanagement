@@ -37,23 +37,27 @@ users.each do |userdata|
   end
 
   filename = userdata['background']['name']
-  local_file_path = ::File.join(local_dir_path, filename)
+  if filename == nil or filename.empty?
 
-  remote_file local_file_path do
-    source userdata["background"]["file_url"]
-    owner username
-    mode "0644"
+    local_file_path = ::File.join(local_dir_path, filename)
+
+    remote_file local_file_path do
+      source userdata["background"]["file_url"]
+      owner username
+      mode "0644"
+    end
+
+    if File.exists?(local_file_path)
+      usermanagement_desktopsetting "picture-uri" do
+        type "string"
+        name "picture-uri"
+        value local_file_path
+        schema "org.gnome.desktop.background"
+        username username
+        provider "usermanagement_gsettings"
+        action :set
+      end
+    end
   end
-
-  usermanagement_desktopsetting "picture-uri" do
-    type "string"
-    name "picture-uri"
-    value local_file_path
-    schema "org.gnome.desktop.background"
-    username username
-    provider "usermanagement_gsettings"
-    action :set
-  end
-
 end
 
