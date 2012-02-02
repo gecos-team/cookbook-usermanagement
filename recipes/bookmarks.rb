@@ -32,15 +32,28 @@ require 'sqlite3'
 users.each do |userdata|
   username = userdata["name"]
   homedir = userdata["home"]
-  sqlitefile = "#{homedir}/.mozilla/firefox/firefox-firma/places.sqlite"
-
-  bookmarks = userdata["bookmarks"]["bookmarks"].map{|x| x[1]}.flatten
-  bookmarks.each do |bookmark|
-    usermanagement_bookmarks sqlitefile do
-      sqlitedb sqlitefile
-      bookmark_title bookmark["title"]
-      bookmark_url bookmark["url"]
-      action :add
+  sqlitefiles = []
+  profiles = "#{homedir}/.mozilla/firefox/profiles.ini"
+  if File.exist? profiles
+    File.open(profiles, "r") do |infile|
+      while (line = infile.gets)
+        aline=line.split('=')
+        if aline[0] == 'Path'
+          sqlitefiles << "#{homedir}/.mozilla/firefox/#{aline[1]}/places.sqlite"
+        end
+      end
+    end
+ 
+    sqlitefiles.each do |sqlitefile|
+      bookmarks = userdata["bookmarks"]["bookmarks"].map{|x| x[1]}.flatten
+      bookmarks.each do |bookmark|
+        usermanagement_bookmarks sqlitefile do
+          sqlitedb sqlitefile
+          bookmark_title bookmark["title"]
+          bookmark_url bookmark["url"]
+          action :add
+        end
+      end
     end
   end
 end
