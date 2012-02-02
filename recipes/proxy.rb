@@ -89,17 +89,6 @@ users.each do |userdata|
       action :set
     end
 
-    %w{ host port }.each do |key|
-      usermanagement_desktopsetting key do
-        type "string"
-        value userdata["proxy"][key]
-        schema "org.gnome.system.proxy.socks"
-        username username
-        provider "usermanagement_gsettings"
-        action :set
-      end
-    end
-
     usermanagement_desktopsetting 'enabled' do
       type "string"
       value "true"
@@ -126,6 +115,19 @@ users.each do |userdata|
         action :set
       end
     end
+
+    %w{ host port }.each do |key|
+      usermanagement_desktopsetting key do
+        type "string"
+        value userdata["proxy"][key]
+        schema "org.gnome.system.proxy.http"
+        username username
+        provider "usermanagement_gsettings"
+        action :set
+      end
+    end
+
+
 
   else
     usermanagement_desktopsetting "mode" do
