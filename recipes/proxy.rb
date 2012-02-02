@@ -30,7 +30,7 @@ users.each do |userdata|
 
   username = userdata["name"]
   mode = userdata["proxy"]["mode"]
-  if mode == "socks"
+  if mode == "manual"
     usermanagement_desktopsetting "mode" do
       type "string"
       value "manual"
@@ -40,8 +40,8 @@ users.each do |userdata|
       action :set
     end
 
-    %w{ host port }.each do |key|
-      usermanagement_desktopsetting key do
+    %w{ host_socks port_socks }.each do |key|
+      usermanagement_desktopsetting key.split('_')[0] do
         type "string"
         value userdata["proxy"][key]
         schema "org.gnome.system.proxy.socks"
@@ -51,73 +51,20 @@ users.each do |userdata|
       end
     end
 
-    %w{ host port }.each do |key|
-      if key=="host"
-        desktop_value="\\\'\\\'"
-        desktop_type="string"
-      else
-        desktop_type="integer"
-        desktop_value="0"
-      end
-      usermanagement_desktopsetting key do
-        type desktop_type
-        value desktop_value
+    unless userdata["proxy"]["host_http"] == ''
+      usermanagement_desktopsetting 'enabled' do
+        type "string"
+        value "true"
         schema "org.gnome.system.proxy.http"
         username username
         provider "usermanagement_gsettings"
         action :set
       end
     end
-    
-    usermanagement_desktopsetting 'enabled' do
-      type "string"
-      value "false"
-      schema "org.gnome.system.proxy.http"
-      username username
-      provider "usermanagement_gsettings"
-      action :set
-    end
 
-    
-  elsif mode == "http"
-    usermanagement_desktopsetting "mode" do
-      type "string"
-      value "manual"
-      schema "org.gnome.system.proxy"
-      username username
-      provider "usermanagement_gsettings"
-      action :set
-    end
 
-    usermanagement_desktopsetting 'enabled' do
-      type "string"
-      value "true"
-      schema "org.gnome.system.proxy.http"
-      username username
-      provider "usermanagement_gsettings"
-      action :set
-    end
-
-    %w{ host port }.each do |key|
-      if key=="host"
-        desktop_value="\\\'\\\'"
-        desktop_type="string"
-      else
-        desktop_value="0"
-        desktop_type="integer"
-      end
-      usermanagement_desktopsetting key do
-        type desktop_type
-        value desktop_value
-        schema "org.gnome.system.proxy.socks"
-        username username
-        provider "usermanagement_gsettings"
-        action :set
-      end
-    end
-
-    %w{ host port }.each do |key|
-      usermanagement_desktopsetting key do
+    %w{ host_http port_http }.each do |key|
+      usermanagement_desktopsetting key.split('_')[0]do
         type "string"
         value userdata["proxy"][key]
         schema "org.gnome.system.proxy.http"
@@ -139,15 +86,15 @@ users.each do |userdata|
       action :set
     end
    
-    %w{ host port }.each do |key|
-      if key=="host"
+    %w{ host_socks port_socks }.each do |key|
+      if key=="host_socks"
         desktop_value="\\\'\\\'"
         desktop_type="string"
       else
         desktop_value="0"
         desktop_type="integer"
       end
-      usermanagement_desktopsetting key do
+      usermanagement_desktopsetting key.split('_')[0] do
         type desktop_type
         value desktop_value
         schema "org.gnome.system.proxy.socks"
@@ -157,15 +104,15 @@ users.each do |userdata|
       end
     end
 
-    %w{ host port }.each do |key|
-      if key=="host"
+    %w{ host_http port_http }.each do |key|
+      if key=="host_http"
         desktop_value="\\\'\\\'"
         desktop_type="string"
       else
         desktop_value="0"
         desktop_type="integer"
       end
-      usermanagement_desktopsetting key do
+      usermanagement_desktopsetting key.split('_')[0] do
         type desktop_type
         value desktop_value
         schema "org.gnome.system.proxy.http"
