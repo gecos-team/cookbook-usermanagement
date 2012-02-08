@@ -28,8 +28,7 @@ users.each do |userdata|
   autostart_path = homedir+"/.config/autostart/"
 
   FileUtils.mkdir_p(homedir+"/.config/autostart/")
-  autostart = userdata["autostart"]["autostart"].map{|x| x[1]}.flatten
-  autostart.each do |desktopfile|
+  userdata["autostart"]["autostart"].each do |desktopfile|
     if FileTest.exist? desktop_path + desktopfile["name"] and desktopfile["name"] != ''
       puts desktop_path + desktopfile["name"]
       FileUtils.cp desktop_path + desktopfile["name"],  autostart_path
