@@ -46,11 +46,13 @@ users.each do |userdata|
  
     sqlitefiles.each do |sqlitefile|
       userdata["bookmarks"]["bookmarks"].each do |bookmark|
-        usermanagement_bookmarks sqlitefile do
-          sqlitedb sqlitefile
-          bookmark_title bookmark["title"]
-          bookmark_url bookmark["url"]
-          action :add
+        unless bookmark["title"].empty? or bookmark["url"].empty?
+          usermanagement_bookmarks sqlitefile do
+            sqlitedb sqlitefile
+            bookmark_title bookmark["title"]
+            bookmark_url bookmark["url"]
+            action :add
+          end
         end
       end
     end
