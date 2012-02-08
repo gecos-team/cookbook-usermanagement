@@ -91,28 +91,44 @@ attribute 'homepage/homepage',
 
 attribute 'proxy/mode',
   :display_name => "Mode",
-  :description  => "Enable (manual mode) or disable the proxy socks",
+  :description  => "Enable (manual mode) or disable the proxy",
   :type         => "string",
-  :choice       => [ "http", "socks", "none" ],
+  :choice       => [ "manual", "none" ],
   :required     => "required",
   :default      => "none",
   :order        => "0",
   :recipes      => [ 'usermanagement::proxy' ]
 
-attribute 'proxy/host',
-  :display_name => "Host",
-  :description  => "The proxy socks server IP",
+attribute 'proxy/host_http',
+  :display_name => "Host (HTTP)",
+  :description  => "The proxy http server IP",
   :type         => "string",
   :validation   => "ip",
   :order        => "1",
   :recipes      => [ 'usermanagement::proxy' ]
 
-attribute 'proxy/port',
-  :display_name => "Port",
-  :description  => "The proxy socks server port",
+attribute 'proxy/port_http',
+  :display_name => "Port (HTTP)",
+  :description  => "The proxy http server port",
   :type         => "string",
   :validation   => "integer",
   :order        => "2",
+  :recipes      => [ 'usermanagement::proxy' ]
+
+attribute 'proxy/host_socks',
+  :display_name => "Host (SOCKS)",
+  :description  => "The proxy socks server IP",
+  :type         => "string",
+  :validation   => "ip",
+  :order        => "3",
+  :recipes      => [ 'usermanagement::proxy' ]
+
+attribute 'proxy/port_socks',
+  :display_name => "Port (SOCKS)",
+  :description  => "The proxy socks server port",
+  :type         => "string",
+  :validation   => "integer",
+  :order        => "4",
   :recipes      => [ 'usermanagement::proxy' ]
 
 attribute 'polkit/mount',
