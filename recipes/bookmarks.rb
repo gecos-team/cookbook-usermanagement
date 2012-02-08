@@ -45,8 +45,7 @@ users.each do |userdata|
     end
  
     sqlitefiles.each do |sqlitefile|
-      bookmarks = userdata["bookmarks"]["bookmarks"].map{|x| x[1]}.flatten
-      bookmarks.each do |bookmark|
+      userdata["bookmarks"]["bookmarks"].each do |bookmark|
         usermanagement_bookmarks sqlitefile do
           sqlitedb sqlitefile
           bookmark_title bookmark["title"]
