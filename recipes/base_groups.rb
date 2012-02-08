@@ -37,7 +37,7 @@ base_groups.each do |grp|
     grp_members = grp_members
     grp_members.uniq!
 
-    group grp[:group] do
+    group grp do
       action :manage
       members grp_members
       append false
