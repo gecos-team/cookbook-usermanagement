@@ -41,13 +41,15 @@ users.each do |userdata|
     end
 
     %w{ host_socks port_socks }.each do |key|
-      usermanagement_desktopsetting key.split('_')[0] do
-        type "string"
-        value userdata["proxy"][key]
-        schema "org.gnome.system.proxy.socks"
-        username username
-        provider "usermanagement_gsettings"
-        action :set
+      unless userdata["proxy"][key].empty?
+        usermanagement_desktopsetting key.split('_')[0] do
+          type "string"
+          value userdata["proxy"][key]
+          schema "org.gnome.system.proxy.socks"
+          username username
+          provider "usermanagement_gsettings"
+          action :set
+        end
       end
     end
 
@@ -64,13 +66,15 @@ users.each do |userdata|
 
 
     %w{ host_http port_http }.each do |key|
-      usermanagement_desktopsetting key.split('_')[0]do
-        type "string"
-        value userdata["proxy"][key]
-        schema "org.gnome.system.proxy.http"
-        username username
-        provider "usermanagement_gsettings"
-        action :set
+      unless userdata["proxy"][key].empty?
+        usermanagement_desktopsetting key.split('_')[0]do
+          type "string"
+          value userdata["proxy"][key]
+          schema "org.gnome.system.proxy.http"
+          username username
+          provider "usermanagement_gsettings"
+          action :set
+        end
       end
     end
 
