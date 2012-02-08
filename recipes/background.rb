@@ -35,14 +35,13 @@ users.each do |userdata|
     recursive true
     action :create
   end
-
   filename = userdata['background']['name']
-  if filename == nil or filename.empty?
+  file_url = userdata["background"]["file_url"]
+  if (!filename == nil or !filename.empty?) and (!file_url == nil or !file_url.empty?)
 
     local_file_path = ::File.join(local_dir_path, filename)
-
     remote_file local_file_path do
-      source userdata["background"]["file_url"]
+      source file_url
       owner username
       mode "0644"
     end
