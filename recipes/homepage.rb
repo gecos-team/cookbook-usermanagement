@@ -27,7 +27,7 @@ users.each do |userdata|
   username = userdata["name"]
   homedir = userdata["home"]
   homepage = userdata["homepage"]["homepage"]
-  if homepage != nil or !homepage.empty?
+  unless homepage.empty?
     users_prefs = []
     profiles = "#{homedir}/.mozilla/firefox/profiles.ini" 
     if File.exist? profiles
@@ -35,19 +35,26 @@ users.each do |userdata|
         while (line = infile.gets)
           aline=line.split('=')
           if aline[0] == 'Path'
-            users_prefs << "#{homedir}/.mozilla/firefox/#{aline[1]}/prefs.js"
+            users_prefs << "#{homedir}/.mozilla/firefox/#{aline[1].chomp}/prefs.js"
           end
         end
       end
     
-    
       users_prefs.each do |user_prefs|
-    
-        usermanagement_plain_file user_prefs do
-          before    /user_pref\(\s*\"browser.startup.homepage\".*/
-          after     "user_pref(\"browser.startup.homepage\", \"#{homepage}\");"
-          action :replace
+        if open(user_prefs).grep(/user_pref\(\"browser.startup.homepage\"/).empty?   
+          usermanagement_plain_file user_prefs do
+            new_line     "user_pref(\"browser.startup.homepage\", \"#{homepage}\");"
+            action :append
+          end
+        else
+          usermanagement_plain_file user_prefs do
+            before    /user_pref\(\s*\"browser.startup.homepage\".*/
+            after     "user_pref(\"browser.startup.homepage\", \"#{homepage}\");"
+            action :replace
+          end
+
         end
+
       end
     end  
   end
