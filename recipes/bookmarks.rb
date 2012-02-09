@@ -39,14 +39,14 @@ users.each do |userdata|
       while (line = infile.gets)
         aline=line.split('=')
         if aline[0] == 'Path'
-          sqlitefiles << "#{homedir}/.mozilla/firefox/#{aline[1]}/places.sqlite"
+          sqlitefiles << "#{homedir}/.mozilla/firefox/#{aline[1].chomp}/places.sqlite"
         end
       end
     end
  
     sqlitefiles.each do |sqlitefile|
       userdata["bookmarks"]["bookmarks"].each do |bookmark|
-        unless bookmark["title"].empty? or bookmark["url"].empty?
+        unless bookmark["title"].empty? 
           usermanagement_bookmarks sqlitefile do
             sqlitedb sqlitefile
             bookmark_title bookmark["title"]
