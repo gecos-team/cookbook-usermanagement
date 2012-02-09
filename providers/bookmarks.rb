@@ -1,10 +1,10 @@
-begin
- require 'sqlite3'
-rescue LoadError => e
- Chef::Log.warn("Dependency 'sqlite3' not loaded: #{e}")
-end
 
 action :add do
+  begin
+    require 'sqlite3'
+  rescue LoadError => e
+    Chef::Log.warn("Dependency 'sqlite3' not loaded: #{e}")
+  end
   if FileTest.exist? new_resource.sqlitedb
     begin
       db = SQLite3::Database.open(new_resource.sqlitedb)
