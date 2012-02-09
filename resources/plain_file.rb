@@ -1,4 +1,4 @@
-actions :replace, :add, :remove
+actions :replace, :add, :remove, :append
 
 attribute :name, :kind_of => String, :name_attribute => true
 attribute :owner, :kind_of => String

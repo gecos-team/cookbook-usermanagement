@@ -9,6 +9,18 @@ action :replace do
   end
 end
 
+action :append do
+  if ::File.exists? new_resource.name
+      open(new_resource.name, 'a') { |f| f.puts new_resource.new_line }
+  else
+    write_new_file(new_resource.name,
+                   new_resource.new_line,
+                   new_resource.owner,
+                   new_resource.group)
+  end
+  new_resource.updated_by_last_action(true)
+end
+
 action :add do
   if ::File.exists? new_resource.name
     new_file = Chef::Util::FileEdit.new new_resource.name
