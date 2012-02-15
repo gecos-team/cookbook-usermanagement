@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: usermanagement
-# Recipe:: shares
+# Recipe:: network_folders
 #
 # Copyright 2011 Junta de Andalucía
 #
@@ -45,7 +45,7 @@ users.each do |userdata|
   end
 
   # Now the remote resources passed as attributes
-  userdata["shares"]["shares"].each do |share|
+  userdata["network_folders"]["network_folders"].each do |share|
     unless share["uri"].empty?
       bookmark = name_for_uri(share["uri"])
   

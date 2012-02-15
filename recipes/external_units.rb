@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: usermanagement
-# Recipe:: polkit
+# Recipe:: external_units
 #
 # Copyright 2011 Junta de Andalucía
 #
@@ -36,7 +36,7 @@ granted_users = Array.new
 users.each do |userdata|
 
   # Can this user mount devices?
-  next if userdata["polkit"]["mount"] == 'false'
+  next if userdata["external_units"]["mount"] == 'false'
   granted_users << userdata["username"]
 end
 users = granted_users.uniq.inject("") do |users,user|
