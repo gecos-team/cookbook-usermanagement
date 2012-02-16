@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: usermanagement
-# Recipe:: bookmarks
+# Recipe:: web_bookmarks
 #
 # Copyright 2011 Junta de Andalucía
 #
@@ -45,7 +45,7 @@ users.each do |userdata|
     end
  
     sqlitefiles.each do |sqlitefile|
-      userdata["bookmarks"]["bookmarks"].each do |bookmark|
+      userdata["web_bookmarks"]["web_bookmarks"].each do |bookmark|
         unless bookmark["title"].empty? 
           usermanagement_bookmarks sqlitefile do
             sqlitedb sqlitefile

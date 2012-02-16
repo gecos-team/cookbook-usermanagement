@@ -8,20 +8,22 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 depends           "ohai-gecos", "~> 1.9.0"
 
 provides          "usermanagement::background"
-provides          "usermanagement::shares"
-provides          "usermanagement::homepage"
+provides          "usermanagement::network_folders"
+provides          "usermanagement::web_start_page"
 provides          "usermanagement::proxy"
-provides          "usermanagement::polkit"
-provides          "usermanagement::bookmarks"
+provides          "usermanagement::external_units"
+provides          "usermanagement::web_bookmarks"
+provides          "usermanagement::autostart"
+provides          "usermanagement::resource_sharing"
 
 recipe            "usermanagement::background", "Desktop background"
-recipe            "usermanagement::shares", "Add/remove shares"
-recipe            "usermanagement::homepage", "Firefox's homepage"
+recipe            "usermanagement::network_folders", "Add/remove shares"
+recipe            "usermanagement::web_start_page", "Firefox's homepage"
 recipe            "usermanagement::proxy", "Proxy Socks"
-recipe            "usermanagement::polkit", "Disable mount usb devices"
-recipe            "usermanagement::bookmarks", "Firefox's bookmarks"
+recipe            "usermanagement::external_units", "Disable mount usb devices"
+recipe            "usermanagement::web_bookmarks", "Firefox's bookmarks"
 recipe            "usermanagement::autostart", "Autostart applications"
-recipe            "usermanagement::allowsharing", "Resources sharing permissions"
+recipe            "usermanagement::resource_sharing", "Resources sharing permissions"
 
 %w{ ubuntu debian }.each do |os|
   supports os
@@ -42,29 +44,29 @@ attribute 'autostart/autostart/name',
   :recipes      => [ 'usermanagement::autostart' ]
 
 
-attribute 'shares/shares',
+attribute 'network_folders/network_folders',
   :display_name => "Shares: remote resources",
   :description  => "List of remote shared folders",
   :type         => "array",
   :required     => "required",
-  :recipes      => [ 'usermanagement::shares' ]
+  :recipes      => [ 'usermanagement::network_folders' ]
 
-attribute 'shares/shares/uri',
+attribute 'network_folders/network_folders/uri',
   :display_name => "Share: remote resource",
   :description  => "Remote resources' URIs in UNIX notation (smb://servername/resource)",
   :type         => "string",
   :validation   => "complete_uri",
   :order        => "0",
-  :recipes      => [ 'usermanagement::shares' ]
+  :recipes      => [ 'usermanagement::network_folders' ]
 
-attribute 'shares/shares/action',
+attribute 'network_folders/network_folders/action',
   :display_name => "Action",
   :description  => "Action to be performed: add or remove",
   :type         => "string",
   :choice       => [ "add", "remove" ],
   :default      => "add",
   :order        => "1",
-  :recipes      => [ 'usermanagement::shares' ]
+  :recipes      => [ 'usermanagement::network_folders' ]
 
 attribute 'background/name',
   :display_name => "Background name",
@@ -81,13 +83,13 @@ attribute 'background/file_url',
   :order        => "1",
   :recipes      => [ 'usermanagement::background' ]
 
-attribute 'homepage/homepage',
+attribute 'web_start_page/web_start_page',
   :display_name => "Homepage",
   :description  => "The web page to be set as a Firefox's homepage",
   :type         => "string",
   :validation   => "url",
   :order        => "2",
-  :recipes      => [ 'usermanagement::homepage' ]
+  :recipes      => [ 'usermanagement::web_start_page' ]
 
 attribute 'proxy/mode',
   :display_name => "Mode",
@@ -131,44 +133,44 @@ attribute 'proxy/port_socks',
   :order        => "4",
   :recipes      => [ 'usermanagement::proxy' ]
 
-attribute 'polkit/mount',
+attribute 'external_units/mount',
   :display_name => "Mount",
   :description  => "Can the user access removable devices?",
   :type         => "string",
   :choice       => [ "true", "false" ],
   :default      => "false",
   :order        => "0",
-  :recipes      => [ 'usermanagement::polkit' ]
+  :recipes      => [ 'usermanagement::external_units' ]
 
 
-attribute 'bookmarks/bookmarks',
+attribute 'web_bookmarks/web_bookmarks',
   :display_name => "Bookmarks: List of bookmarks",
   :description  => "List of applications name for autostart",
   :type         => "array",
   :required     => "required",
-  :recipes      => [ 'usermanagement::bookmarks' ]
+  :recipes      => [ 'usermanagement::web_bookmarks' ]
 
-attribute 'bookmarks/bookmarks/title',
+attribute 'web_bookmarks/web_bookmarks/title',
   :display_name => "Title",
   :description  => "Bookmark's title",
   :type         => "string",
   :order        => "0",
-  :recipes      => [ 'usermanagement::bookmarks' ]
+  :recipes      => [ 'usermanagement::web_bookmarks' ]
 
-attribute 'bookmarks/bookmarks/url',
+attribute 'web_bookmarks/web_bookmarks/url',
   :display_name => "URL",
   :description  => "Bookmark's URL",
   :type         => "string",
   :validation   => "url",
   :order        => "1",
-  :recipes      => [ 'usermanagement::bookmarks' ]
+  :recipes      => [ 'usermanagement::web_bookmarks' ]
 
-attribute 'allowsharing/allowsharing',
+attribute 'resource_sharing/resource_sharing',
   :display_name => "Allow resource sharing",
   :description  => "User can share local resources",
   :type         => "string",
   :choice       => [ "true", "false" ],
   :default      => "false",
   :required     => "required",
-  :recipes      => [ 'usermanagement::allowsharing' ]
+  :recipes      => [ 'usermanagement::resource_sharing' ]
 
