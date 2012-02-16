@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: usermanagement
-# Recipe:: homepage
+# Recipe:: web_start_page
 #
 # Copyright 2011 Junta de Andalucía
 #
@@ -26,7 +26,7 @@
 users.each do |userdata|
   username = userdata["name"]
   homedir = userdata["home"]
-  homepage = userdata["homepage"]["homepage"]
+  homepage = userdata["web_start_page"]["web_start_page"]
   unless homepage.empty?
     users_prefs = []
     profiles = "#{homedir}/.mozilla/firefox/profiles.ini" 

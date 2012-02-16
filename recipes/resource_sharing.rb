@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: usermanagement
-# Recipe:: allowsharing
+# Recipe:: resource_sharing
 #
 # Copyright 2011 Junta de Andalucía
 #
@@ -32,7 +32,7 @@ def manage_samba_members(samba_members)
 
   users.each do |userdata|
     username = userdata['username']
-    if userdata['allowsharing']['allowsharing'] == 'true'
+    if userdata['resource_sharing']['resource_sharing'] == 'true'
       users_to_add << username
     else
       users_to_remove << username
