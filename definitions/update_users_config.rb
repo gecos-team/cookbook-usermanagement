@@ -22,7 +22,7 @@
 #
 
 
-define :users2 do
+define :update_users_config do
     node['users_def_timestamp'] = 0 unless !node['users_def_timestamp'].nil?
     # unless the definition was run in other chef run do not reprocess it
     if !node['users_def_timestamp'].nil? and ( Time.now.to_i - node['users_def_timestamp'] ) > 3600
