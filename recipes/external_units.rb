@@ -39,7 +39,7 @@ node['userdata'].each do |userdata|
 
   # Can this user mount devices?
   next if userdata["external_units"]["mount"] == 'false'
-  granted_users << userdata["username"]
+  granted_users << userdata["name"]
 end
 users = granted_users.uniq.inject("") do |users,user|
   users << ";unix-user:#{user}"

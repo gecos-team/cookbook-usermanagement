@@ -33,7 +33,7 @@ def manage_samba_members(samba_members)
   update_users_config
 
   node['userdata'].each do |userdata|
-    username = userdata['username']
+    username = userdata['name']
     if userdata['resource_sharing']['resource_sharing'] == 'true'
       users_to_add << username
     else
