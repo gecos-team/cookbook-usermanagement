@@ -22,10 +22,12 @@
 #
 require 'etc'
 
+update_users_config
+
 base_groups = node[:group_management][:base_groups]
 
 users_to_add = []
-users.each do |userdata|
+node['userdata'].each do |userdata|
   users_to_add << userdata["name"]
 end
 

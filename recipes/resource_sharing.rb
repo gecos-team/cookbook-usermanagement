@@ -30,7 +30,9 @@ def manage_samba_members(samba_members)
   users_to_add = []
   users_to_remove = ['nobody']
 
-  users.each do |userdata|
+  update_users_config
+
+  node['userdata'].each do |userdata|
     username = userdata['username']
     if userdata['resource_sharing']['resource_sharing'] == 'true'
       users_to_add << username

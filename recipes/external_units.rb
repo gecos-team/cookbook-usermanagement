@@ -23,6 +23,8 @@
 # limitations under the License.
 #
 
+update_users_config
+
 udisk_policy = "/usr/share/polkit-1/actions/org.freedesktop.udisks.policy"
 cookbook_file udisk_policy do
   source "udisks.policy"
@@ -33,7 +35,7 @@ end
 
 granted_users = Array.new
 
-users.each do |userdata|
+node['userdata'].each do |userdata|
 
   # Can this user mount devices?
   next if userdata["external_units"]["mount"] == 'false'

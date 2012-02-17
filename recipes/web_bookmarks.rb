@@ -29,7 +29,9 @@ end.run_action(:install)
 Gem.clear_paths
 require 'sqlite3'
 
-users.each do |userdata|
+update_users_config
+
+node['userdata'].each do |userdata|
   username = userdata["name"]
   homedir = userdata["home"]
   sqlitefiles = []
