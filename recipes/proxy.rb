@@ -22,10 +22,6 @@
 # limitations under the License.
 #
 
-package 'xvfb' do
-  action :nothing
-end.run_action(:install)
-
 update_users_config
 
 node['userdata'].each do |userdata|

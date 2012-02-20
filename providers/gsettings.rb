@@ -1,3 +1,11 @@
+def initialize(*args)
+  super
+  @action = :set
+  package 'xvfb' do
+    action :nothing
+  end.run_action(:install)
+end
+
 action :set do
   execute "set key" do
     command "xvfb-run -w 0 sudo -iu #{new_resource.username} gsettings set #{new_resource.schema} #{new_resource.name} #{new_resource.value}"
