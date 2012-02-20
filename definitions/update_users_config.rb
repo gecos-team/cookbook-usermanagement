@@ -5,6 +5,7 @@
 #
 # Author::
 #  * Juanje Ojeda <jojeda@emergya.com>
+#  * Roberto C. Morano <rcmorano@emergya.com>
 # 
 # Based on the Roberto C. Morano's applyuserconfs recipe
 #
