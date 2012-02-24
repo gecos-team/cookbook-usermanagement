@@ -29,7 +29,11 @@ node['userdata'].each do |userdata|
   desktop_path = "/usr/share/applications/"
   autostart_path = homedir+"/.config/autostart/"
 
-  FileUtils.mkdir_p(homedir+"/.config/autostart/")
+  unless Kernel::test('d', autostart_path)
+    FileUtils.mkdir_p(autostart_path)
+    FileUtils.chown_R(username, username, homedir+"/.config")
+  end
+
   userdata["autostart"]["autostart"].each do |desktopfile|
     if FileTest.exist? desktop_path + desktopfile["name"] and not desktopfile["name"].empty? and not desktopfile["name"].nil?
       FileUtils.cp desktop_path + desktopfile["name"],  autostart_path
