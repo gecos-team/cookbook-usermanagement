@@ -4,6 +4,12 @@ def initialize(*args)
   package 'xvfb' do
     action :nothing
   end.run_action(:install)
+
+  dconf_cache_dir = "/home/#{new_resource.username}/.cache/dconf"
+  unless Kernel::test('d', dconf_cache_dir)
+    FileUtils.mkdir dconf_cache_dir
+    FileUtils.chown_R(new_resource.username, new_resource.username, dconf_cache_dir)  
+  end
 end
 
 action :set do
