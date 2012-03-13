@@ -15,6 +15,7 @@ provides          "usermanagement::external_units"
 provides          "usermanagement::web_bookmarks"
 provides          "usermanagement::autostart"
 provides          "usermanagement::launchers"
+provides          "usermanagement::screensaver"
 provides          "usermanagement::resource_sharing"
 
 recipe            "usermanagement::background", "Desktop background"
@@ -25,6 +26,7 @@ recipe            "usermanagement::external_units", "Disable mount usb devices"
 recipe            "usermanagement::web_bookmarks", "Firefox's bookmarks"
 recipe            "usermanagement::autostart", "Autostart applications"
 recipe            "usermanagement::launchers", "Launchers applications"
+recipe            "usermanagement::screensaver", "Configuration of screensaver"
 recipe            "usermanagement::resource_sharing", "Resources sharing permissions"
 
 %w{ ubuntu debian }.each do |os|
@@ -83,6 +85,39 @@ attribute 'network_folders/network_folders/action',
   :default      => "add",
   :order        => "1",
   :recipes      => [ 'usermanagement::network_folders' ]
+
+attribute 'screensaver/darken',
+  :display_name => "Darken screen",
+  :description  => "Darken screen when pc is idle",
+  :type         => "string",
+  :choice       => [ "true", "false" ],
+  :order        => "0",
+  :recipes      => [ 'usermanagement::screensaver' ]
+
+attribute 'screensaver/time_idle',
+  :display_name => "Idle time",
+  :description  => "Set time to idle pc (in seconds)",
+  :type         => "string",
+  :choice       => [ "0", "60", "120", "180", "300", "600", "1800", "3600" ],
+  :order        => "1",
+  :recipes      => [ 'usermanagement::screensaver' ]
+
+attribute 'screensaver/lock',
+  :display_name => "Lock screen",
+  :description  => "Lock screen when pc is idle",
+  :type         => "string",
+  :choice       => [ "true", "false" ],
+  :order        => "2",
+  :recipes      => [ 'usermanagement::screensaver' ]
+
+attribute 'screensaver/time_lock',
+  :display_name => "Lock time",
+  :description  => "Set time to lock pc after idle (in seconds)",
+  :type         => "string",
+  :choice       => [ "0", "30", "60", "120", "180", "300", "600", "1800" ],
+  :order        => "3",
+  :recipes      => [ 'usermanagement::screensaver' ]
+
 
 attribute 'background/name',
   :display_name => "Background name",
