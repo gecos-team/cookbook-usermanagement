@@ -14,6 +14,7 @@ provides          "usermanagement::proxy"
 provides          "usermanagement::external_units"
 provides          "usermanagement::web_bookmarks"
 provides          "usermanagement::autostart"
+provides          "usermanagement::launchers"
 provides          "usermanagement::resource_sharing"
 
 recipe            "usermanagement::background", "Desktop background"
@@ -23,6 +24,7 @@ recipe            "usermanagement::proxy", "Proxy Socks"
 recipe            "usermanagement::external_units", "Disable mount usb devices"
 recipe            "usermanagement::web_bookmarks", "Firefox's bookmarks"
 recipe            "usermanagement::autostart", "Autostart applications"
+recipe            "usermanagement::launchers", "Launchers applications"
 recipe            "usermanagement::resource_sharing", "Resources sharing permissions"
 
 %w{ ubuntu debian }.each do |os|
@@ -42,6 +44,20 @@ attribute 'autostart/autostart/name',
   :type         => "string",
   :order        => "0",
   :recipes      => [ 'usermanagement::autostart' ]
+
+attribute 'launchers/launchers',
+  :display_name => "Launchers: Name applications",
+  :description  => "List of applications name for launchers",
+  :type         => "array",
+  :required     => "required",
+  :recipes      => [ 'usermanagement::launchers' ]
+
+attribute 'launchers/launchers/name',
+  :display_name => "Desktop file name of application",
+  :description  => "Set the desktop file name (In e.g gedit.desktop)",
+  :type         => "string",
+  :order        => "0",
+  :recipes      => [ 'usermanagement::launchers' ]
 
 
 attribute 'network_folders/network_folders',
