@@ -19,7 +19,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+require 'etc'
 update_users_config
 
 node['userdata'].each do |userdata|
@@ -31,7 +31,8 @@ node['userdata'].each do |userdata|
 
   unless Kernel::test('d', autostart_path)
     FileUtils.mkdir_p(autostart_path)
-    FileUtils.chown_R(username, username, homedir+"/.config")
+    gid = Etc.getpwnam(username).gid 
+    FileUtils.chown_R(username, gid, homedir+"/.config")
   end
 
   userdata["autostart"]["autostart"].each do |desktopfile|
