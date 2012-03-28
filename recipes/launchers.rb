@@ -19,6 +19,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'etc'
+
 node['userdata'].each do |userdata|
   username = userdata["name"]
   homedir = userdata["home"]
@@ -28,7 +30,8 @@ node['userdata'].each do |userdata|
 
   unless Kernel::test('d', launchers_path)
     FileUtils.mkdir_p(launchers_path)
-    FileUtils.chown_R(username, username, launchers_path)
+    gid = Etc.getpwnam(new_resource.username).gid
+    FileUtils.chown_R(username, gid, launchers_path)
   end
 
 
