@@ -29,14 +29,23 @@ node['userdata'].each do |userdata|
 
   username = userdata["name"]
   homedir = userdata["home"]
-
   local_dir_path = "#{homedir}/.cache/gnome-control-center/backgrounds/"
   # Let's be sure the parent directory exists
-  directory local_dir_path do
+  gid = Etc.getpwnam(username).gid
+  directory "#{homedir}/.cache/gnome-control-center" do
     owner username
+    group gid
     recursive true
     action :create
   end
+
+  directory "#{homedir}/.cache/gnome-control-center/backgrounds" do
+    owner username
+    group gid
+    recursive true
+    action :create
+  end
+
   filename = userdata['background']['name']
   file_url = userdata["background"]["file_url"]
   if (!filename == nil or !filename.empty?) and (!file_url == nil or !file_url.empty?)
@@ -52,7 +61,7 @@ node['userdata'].each do |userdata|
       usermanagement_desktopsetting "picture-uri" do
         type "string"
         name "picture-uri"
-        value local_file_path
+        value 'file://'+local_file_path
         schema "org.gnome.desktop.background"
         username username
         provider "usermanagement_gsettings"
