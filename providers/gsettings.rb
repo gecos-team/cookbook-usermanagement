@@ -1,5 +1,5 @@
 require 'etc'
-def initiailize(*args)
+def initialize(*args)
   super
   @action = :set
   package 'xvfb' do
@@ -20,7 +20,7 @@ end
 
 action :set do
   dbus_address = @dbus_address
-  unless dbus_address.empty?
+  unless dbus_address.nil?
     execute "set key" do
       command "sudo -iu #{new_resource.username} DBUS_SESSION_BUS_ADDRESS=\"#{dbus_address}\" gsettings set #{new_resource.schema} #{new_resource.name} #{new_resource.value}"
     end
@@ -32,7 +32,8 @@ action :set do
 end
 
 action :unset do
-  unless dbus_address.empty?
+  dbus_address = @dbus_address
+  unless dbus_address.nil?
     execute "unset key" do
       command "sudo -iu #{new_resource.username} DBUS_SESSION_BUS_ADDRESS=\"#{@dbus_address}\" gsettings reset #{new_resource.schema} #{new_resource.name}"
     end
