@@ -1,4 +1,5 @@
-def initialize(*args)
+require 'etc'
+def initiailize(*args)
   super
   @action = :set
   package 'xvfb' do
@@ -8,7 +9,8 @@ def initialize(*args)
   dconf_cache_dir = "/home/#{new_resource.username}/.cache/dconf"
   unless Kernel::test('d', dconf_cache_dir)
     FileUtils.mkdir dconf_cache_dir
-    FileUtils.chown_R(new_resource.username, new_resource.username, dconf_cache_dir)  
+    gid = Etc.getpwnam(new_resource.username).gid
+    FileUtils.chown_R(new_resource.username, gid, dconf_cache_dir)  
   end
 
   dbus_file = Dir["/home/#{new_resource.username}/.dbus/session-bus/*0"].last
