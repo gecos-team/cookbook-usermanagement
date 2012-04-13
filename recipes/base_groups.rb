@@ -33,8 +33,19 @@ end
 
 base_groups.each do |grp|
   grp_members = Etc.getgrnam(grp).mem
+  
+  grp_members2
+  grp_members.each do |members|
+    begin
+      Etc.getpwnam(members)
+      grp_memebers2 << members
+    rescue ArgumentError => e
+      puts 'User '+ members + ' doesn\'t exists'
 
-  grp_members = grp_members + users_to_add
+    end
+  end
+  
+  grp_members = grp_members2 + users_to_add
   unless grp_members.empty?
     grp_members = grp_members
     grp_members.uniq!
