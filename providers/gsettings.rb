@@ -8,13 +8,16 @@ def initialize(*args)
 
   dconf_cache_dir = "/home/#{new_resource.username}/.cache/dconf"
   unless Kernel::test('d', dconf_cache_dir)
-    FileUtils.mkdir dconf_cache_dir
+    FileUtils.mkdir_p dconf_cache_dir
     gid = Etc.getpwnam(new_resource.username).gid
     FileUtils.chown_R(new_resource.username, gid, dconf_cache_dir)  
   end
-
-  dbus_file = Dir["/home/#{new_resource.username}/.dbus/session-bus/*0"].last
-  @dbus_address = open(dbus_file).grep(/^DBUS_SESSION_BUS_ADDRESS=(.*)/){$1}[0]
+  begin
+    dbus_file = Dir["/home/#{new_resource.username}/.dbus/session-bus/*0"].last
+    @dbus_address = open(dbus_file).grep(/^DBUS_SESSION_BUS_ADDRESS=(.*)/){$1}[0]
+  rescue Exception => e
+    @dbus_address = nil
+  end
         
 end
 
