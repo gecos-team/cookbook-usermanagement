@@ -34,7 +34,7 @@ end
 base_groups.each do |grp|
   grp_members = Etc.getgrnam(grp).mem
   
-  grp_members2
+  grp_members2 = []
   grp_members.each do |members|
     begin
       Etc.getpwnam(members)
