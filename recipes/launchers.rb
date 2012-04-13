@@ -38,7 +38,8 @@ node['userdata'].each do |userdata|
   userdata["launchers"]["launchers"].each do |desktopfile|
     if FileTest.exist? desktop_path + desktopfile["name"] and not desktopfile["name"].empty? and not desktopfile["name"].nil?
       FileUtils.cp desktop_path + desktopfile["name"],  launchers_path
-      FileUtils.chown username, username, launchers_path + desktopfile["name"]
+      gid = Etc.getpwnam(new_resource.username).gid
+      FileUtils.chown_R(username, gid, launchers_path + desktopfile["name"])
       FileUtils.chmod 0775, launchers_path + desktopfile["name"]
     end
   end
