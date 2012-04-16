@@ -38,7 +38,7 @@ base_groups.each do |grp|
   grp_members.each do |members|
     begin
       Etc.getpwnam(members)
-      grp_memebers2 << members
+      grp_members2 << members
     rescue ArgumentError => e
       puts 'User '+ members + ' doesn\'t exists'
 

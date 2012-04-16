@@ -30,7 +30,7 @@ node['userdata'].each do |userdata|
 
   unless Kernel::test('d', launchers_path)
     FileUtils.mkdir_p(launchers_path)
-    gid = Etc.getpwnam(new_resource.username).gid
+    gid = Etc.getpwnam(username).gid
     FileUtils.chown_R(username, gid, launchers_path)
   end
 
@@ -38,7 +38,7 @@ node['userdata'].each do |userdata|
   userdata["launchers"]["launchers"].each do |desktopfile|
     if FileTest.exist? desktop_path + desktopfile["name"] and not desktopfile["name"].empty? and not desktopfile["name"].nil?
       FileUtils.cp desktop_path + desktopfile["name"],  launchers_path
-      gid = Etc.getpwnam(new_resource.username).gid
+      gid = Etc.getpwnam(username).gid
       FileUtils.chown_R(username, gid, launchers_path + desktopfile["name"])
       FileUtils.chmod 0775, launchers_path + desktopfile["name"]
     end
