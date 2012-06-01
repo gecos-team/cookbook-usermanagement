@@ -1,7 +1,7 @@
 name              "usermanagement"
-version           "0.1.4"
-maintainer        "Juanje Ojeda"
-maintainer_email  "jojeda@emergya.com"
+version           "0.1.5"
+maintainer        "Alfonso de Cala"
+maintainer_email  "alfonso.cala@juntadeandalucia.es"
 license           "Apache 2.0"
 description       "This cookbook provides the ability to change user specific configurations"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
@@ -35,7 +35,7 @@ end
 
 attribute 'autostart/autostart',
   :display_name => "Autostart: Name applications",
-  :description  => "List of applications name for autostart",
+  :description  => "List of applications for autostart",
   :type         => "array",
   :required     => "required",
   :recipes      => [ 'usermanagement::autostart' ]
@@ -69,12 +69,22 @@ attribute 'network_folders/network_folders',
   :required     => "required",
   :recipes      => [ 'usermanagement::network_folders' ]
 
+
 attribute 'network_folders/network_folders/uri',
-  :display_name => "Share: remote resource",
-  :description  => "Remote resources' URIs in UNIX notation (smb://servername/resource)",
+  :display_name => "Remote folder",
+  :description  => "Shared resources' URIs in UNIX notation (smb://user@servername/resource)",
   :type         => "string",
   :validation   => "complete_uri",
   :order        => "0",
+  :recipes      => [ 'usermanagement::network_folders' ]
+
+attribute 'network_folders/network_folders/authentication',
+  :display_name => "User authentication",
+  :description  => "Authenticate the username logged in the workstation",
+  :type         => "string",
+  :choice       => [ "true", "false" ],
+  :validation   => "complete_uri",
+  :order        => "1",
   :recipes      => [ 'usermanagement::network_folders' ]
 
 attribute 'network_folders/network_folders/action',
@@ -83,7 +93,7 @@ attribute 'network_folders/network_folders/action',
   :type         => "string",
   :choice       => [ "add", "remove" ],
   :default      => "add",
-  :order        => "1",
+  :order        => "2",
   :recipes      => [ 'usermanagement::network_folders' ]
 
 attribute 'screensaver/darken',

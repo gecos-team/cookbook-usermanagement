@@ -34,23 +34,28 @@ node['userdata'].each do |userdata|
   username = userdata["name"]
   homedir = userdata["home"]
 
-  # A general bookmark to see the remote resources from non-gvfs apps
-  remote_resources = "file://#{homedir}/.gvfs/ Unidades de red"
+#  A general bookmark to see the remote resources from non-gvfs apps
+#  remote_resources = "file://#{homedir}/.gvfs/ Unidades de red"
 
   # We make sure the general bookmark is always there
-  usermanagement_plain_file "#{homedir}/.gtk-bookmarks" do
-    pattern remote_resources
-    new_line remote_resources
-    owner username
-    group username
-    action :add
-  end
+#  usermanagement_plain_file "#{homedir}/.gtk-bookmarks" do
+#    pattern remote_resources
+#    new_line remote_resources
+#    owner username
+#    group username
+#    action :add
+#  end
 
   # Now the remote resources passed as attributes
   userdata["network_folders"]["network_folders"].each do |share|
     unless share["uri"].empty?
+
       bookmark = name_for_uri(share["uri"])
-  
+      if share["authentication"] == "true"
+        parts = share["uri"].match('(smb|nfs|ftp)(:\/\/)([\S]*\/.*)')
+        share["uri"] = parts[1]+parts[2]+username + "@" +parts[3]
+      end
+      
       usermanagement_plain_file "#{homedir}/.gtk-bookmarks" do
         pattern share["uri"]
         new_line "#{share["uri"]} #{bookmark}"

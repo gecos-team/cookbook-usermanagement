@@ -52,6 +52,7 @@ Authors::
 * Roberto C. Morano (<rcmorano@emergya.com>)
 * David Amián (<damian@emergya.com>)
 * Juanje Ojeda (<jojeda@emergya.com>)
+* Alfonso de Cala (<alfonso.cala@juntadeandalucia.es>)
 
 Copyright 2011 Junta de Andalucía
 
